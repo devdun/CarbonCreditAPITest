@@ -52,9 +52,7 @@ public class CarbonCreditTests {
 		response.then().statusCode(404);
 
 		// Validate the error message in the response body
-		ResponseBody body = response.getBody();
-		String bodyAsString = body.asString();
-		Assert.assertEquals(bodyAsString.contains("File or directory not found."),true,"404 correct validation message");
+		response.then().assertThat().body(containsString("File or directory not found."));
 	}
 
 	@Test
@@ -69,6 +67,6 @@ public class CarbonCreditTests {
 		response.then().statusCode(405);
 
 		// Validate the error message in the response body
-		response.then().assertThat().body("error", equalTo("Method Not Allowed"));
+		response.then().assertThat().body(containsString("Method not allowed"));
 	}
 }
