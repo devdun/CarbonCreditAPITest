@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 
 public class CarbonCreditTests {
 
-	@Test
+	@Test (priority = 1)
 	public void validateCarbonCredits() {
 		RestAssured.baseURI = "https://api.tmsandbox.co.nz/v1";
 		RequestSpecification request = given();
@@ -34,11 +34,10 @@ public class CarbonCreditTests {
 		response.then()
 				.assertThat().contentType("application/json")
 				.and().header("Content-Length", "1398")
-//				.and().header("Content-Encoding", "")
 				.and().time(lessThan(5000L)); // Ensure the response time is less than 5 seconds
 	}
 
-	@Test
+	@Test (priority = 2)
 	public void validateInvalidEndpoint() {
 		RestAssured.baseURI = "https://api.tmsandbox.co.nz/v1";
 		RequestSpecification request = given();
@@ -53,7 +52,7 @@ public class CarbonCreditTests {
 		response.then().assertThat().body(containsString("File or directory not found."));
 	}
 
-	@Test
+	@Test (priority = 3)
 	public void validateInvalidMethod() {
 		RestAssured.baseURI = "https://api.tmsandbox.co.nz/v1";
 		RequestSpecification request = given();
